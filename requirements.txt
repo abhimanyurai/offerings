@@ -1,0 +1,16 @@
+# Packages used to test things users may do with Streamlit.
+pandas
+numpy
+seaborn
+matplotlib
+PIL
+pycaret
+streamlit
+json
+logging
+pickle
+googlemaps
+IPython
+plotly
+os
+
