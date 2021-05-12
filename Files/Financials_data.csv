@@ -1,5 +1,13 @@
-﻿Idea,Value,Year1,Year2,Year3,Year4
-Aggregated vehicle related requirements,Revenue,2.63,12.45,28.23,68.85
-Aggregated vehicle related requirements,Capex,10.00,20.00,30.00,40.00
-Aggregated vehicle related requirements,Opex,40.00,10.00,5.00,6.00
-Aggregated vehicle related requirements,Profitability,5%,7%,10%,20%
+﻿Idea,Value,FY25,FY30,FY35,FY40,Unit
+Aggregated vehicle related requirements,Revenue,117,556,"1,669","4,082",Rs Thousand
+Aggregated vehicle related requirements,Opex,30,348,"1,302","3,306",Rs Thousand
+Aggregated vehicle related requirements,Profitability,74%,37%,22%,19%,%
+One-stop shop for daily farmer needs,Revenue,23.83,57.7,105.9,167.58,Rs Thousand
+One-stop shop for daily farmer needs,Opex,20.31,44.67,84.93,134.81,Rs Thousand
+One-stop shop for daily farmer needs,Profitability,10%,16%,14%,14%,%
+Truck Stops (Auto Repair / Rest),Revenue,"1,393","2,515","3,834","5,376",Rs Thousand
+Truck Stops (Auto Repair / Rest),Opex,"1,251","2,264","3,454","4,846",Rs Thousand
+Truck Stops (Auto Repair / Rest),Profitability,7%,7%,7%,7%,%
+Virtual C-store,Revenue,119,595,"1,858","4,287",Rs Thousand
+Virtual C-store,Opex,57,438,"1,507","3,620",Rs Thousand
+Virtual C-store,Profitability,52%,26%,19%,16%,%
