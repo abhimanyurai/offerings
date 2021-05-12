@@ -178,6 +178,9 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
         data_x = ['FY25','FY30','FY35','FY40']
         data_y1 = financials_df_sliced[financials_df_sliced['Value']=='Revenue'][data_x].iloc[0]
         data_y2 = financials_df_sliced[financials_df_sliced['Value']=='Profitability'][data_x].iloc[0]
+        data_y1_new=[]
+        for y in data_y1:
+            data_y1_new.append(float(y))
         data_y2_new=[]
         for y in data_y2:
             data_y2_new.append(float(y.split("%")[0])/100)
@@ -187,7 +190,7 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
         
         # Add traces
         fig.add_trace(
-            go.Bar(x=data_x, y=data_y1, name="Revenue Data", marker_color='#000032'),
+            go.Bar(x=data_x, y=data_y1_new, name="Revenue Data", marker_color='#000032'),
             secondary_y=False,
         )
         
@@ -205,7 +208,7 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
         fig.update_layout(width=1000,height=400)
 
         # Set y-axes titles
-        fig.update_yaxes(title_text="<b>Revenue (in Rs Thousand)</b>", secondary_y=False)
+        fig.update_yaxes(title_text="<b>Revenue (in Rs Thousand)</b>", secondary_y=False,range=[0,max(data_y1_new)+20])
         fig.update_yaxes(title_text="<b>Profitability (%)</b>",secondary_y=True,tickformat= ',.0%')
  
         st.plotly_chart(fig,width=1000,height=400)
