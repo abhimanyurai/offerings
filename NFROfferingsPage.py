@@ -22,7 +22,7 @@ from IPython.display import HTML
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from SessionState import get
-import os
+
 
 
 st.set_page_config(
@@ -36,7 +36,7 @@ def add_element(dict, key, value):
 
 
 
-def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_models,log,input_distance_dict,API_key,financials_df):
+def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_models,log,input_distance_dict,API_key,financials_df,financials_df_cost_heads):
     
     st.sidebar.empty()
     cola,colb = st.beta_columns([5,1])
@@ -62,16 +62,16 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
   
     model_input = pd.DataFrame(data =np.array(arr_val).reshape(1,-1),columns=np.array(arr_key))
     
-    print(model_input)
+    
     score_list = {}
     
     for key in trained_models.keys():
-        print(key)
+        
         result = predict_model(trained_models[key],model_input, raw_score =True)
-        print (result)
+        
         
         scores = result[result.columns[pd.Series(result.columns).str.startswith('Score')]].T
-        print (scores)
+        
         if scores.empty:
             score_list[key] = 0
         else:
@@ -130,12 +130,10 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
     st.write("Legend")
     col7,col8,col9 = st.beta_columns([1,1,8])
     with col7:
-        st.markdown(f"<h6 style='text-align: center; color:white;background-color: #000032; height: 20px; width: 90px ; '>Sweet Spot</h6>", unsafe_allow_html=True)
-    
+        st.markdown(f"<h6 style='text-align: center; color:white;background-color: #000032; height: 20px; width: 90px ; padding-right: 1px; '>Sweet Spot</h6>", unsafe_allow_html=True)
     with col8:
         st.markdown(f"<h6 style='text-align: center; color:white;background-color: #fb843b; height: 20px; width: 90px ;'>Hot Spot</h6>", unsafe_allow_html=True)
     with col9:
-            
         st.write("")
             
     
@@ -163,19 +161,25 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
     #FINANCIALS DISPLAY
     st.markdown('---')
     st.header('RO Financials')
-    offer_financial = st.selectbox('Offering', offerings)
+    
+    fin_list = list(financials_df['Idea'].drop_duplicates())
+    print(fin_list)
+    
+    offer_financial = st.selectbox('Offering', fin_list)
+    
     #offer_financial = 'Aggregated vehicle related requirements'
-    financials_df_sliced = financials_df[financials_df['Idea']==offer_financial]
+    print(offer_financial)
+    
+    financials_df_sliced = financials_df[financials_df['Idea']==offer_financial][['Value','FY25','FY30','FY35','FY40']]
+    print(financials_df_sliced)
+    print(financials_df)
     if financials_df_sliced.empty:
-        st.write("Financials Projects Unavailable")
+        st.write("Financials Data Unavailable")
     else:
-        data_x = ['Year1','Year2','Year3','Year4']
+        data_x = ['FY25','FY30','FY35','FY40']
         data_y1 = financials_df_sliced[financials_df_sliced['Value']=='Revenue'][data_x].iloc[0]
         data_y2 = financials_df_sliced[financials_df_sliced['Value']=='Profitability'][data_x].iloc[0]
-        print(data_x)
-        print(data_y1)
-        print(data_y2)
-        
+       
         # Create figure with secondary y-axis
         fig = make_subplots(specs=[[{"secondary_y": True}]])
         
@@ -197,15 +201,41 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
         fig.update_layout(width=1000,height=400)
         
         # Set y-axes titles
-        fig.update_yaxes(title_text="<b>Revenue (in lacs)</b>", secondary_y=False)
+        fig.update_yaxes(title_text="<b>Revenue (in Rs Thousand)</b>", secondary_y=False)
         fig.update_yaxes(title_text="<b>Profitability (%)</b>", secondary_y=True)
  
         st.plotly_chart(fig,width=1000,height=400)
         
         with st.beta_expander("See Details"):
-            st.write(HTML(financials_df_sliced.drop('Idea',axis=1).to_html(index=False,justify='center')))
-        
-       
+            col1,col2 = st.beta_columns([2,1])
+            with col1:
+                st.write(HTML(financials_df[financials_df['Idea']==offer_financial].drop('Idea',axis=1).to_html(index=False,justify='center')))
+            with col2:
+                
+                opex = ""
+                i=0
+                for cost_head in list(financials_df_cost_heads['Opex'][financials_df_cost_heads['Idea']==offer_financial].dropna()):
+                    if i==0:
+                        opex=cost_head
+                        i=1
+                    else:
+                        opex = opex + ", "+cost_head
+                opex = "Opex Cost Heads- "+opex
+                        
+                capex = ""
+                i=0
+                for cost_head in list(financials_df_cost_heads['Capex'][financials_df_cost_heads['Idea']==offer_financial].dropna()):
+                    if i==0:
+                        capex=cost_head
+                        i=1
+                    else:
+                        capex = capex + ", "+cost_head
+                capex = "Capex Cost Heads- "+capex
+                
+                st.markdown(f"<h5 style='text-align: left; color:black'>{opex}</h5>", unsafe_allow_html=True)
+                st.markdown(f"<h5 style='text-align: left; color:black'>{capex}</h5>", unsafe_allow_html=True)
+            
+                         
     
     #MACHINE LEARNING MODELS    
     st.markdown('---')
@@ -314,8 +344,10 @@ def Offerings_Input(input_df,training_df,input_df_cleaned_for_prediction,offerin
             if training_df[col].max()<1:
                 val = st.sidebar.slider(
                 col,
-                min_value=training_df[col].min(),
-                max_value=training_df[col].max(),
+                #min_value=training_df[col].min(),
+                #max_value=training_df[col].max(),
+                min_value=0,
+                max_value=1,
                 value=float(training_df[col].mean()),
                 step= 0.0001
                 
@@ -353,8 +385,10 @@ def Offerings_Input(input_df,training_df,input_df_cleaned_for_prediction,offerin
             if training_df[col].max()<1:
                 val = st.sidebar.slider(
                 col,
-                min_value=training_df[col].min(),
-                max_value=training_df[col].max(),
+                #min_value=training_df[col].min(),
+                #max_value=training_df[col].max(),
+                min_value=0,
+                max_value=1,
                 value=float(training_df[col].mean()),
                 step = 0.0001
                 
@@ -496,6 +530,7 @@ if __name__ == '__main__':
     input_df = pd.read_csv("./Files/Test Data Pivoted.csv")
     training_df = pd.read_csv("./Files//Offering Data Pivoted.csv")
     financials_df = pd.read_csv("./Files/Financials_data.csv")
+    financials_df_cost_heads = pd.read_csv("./Files/Financials_Data_Cost_Heads.csv")
      
     pkl_file = open('./Files/Trained_Models_v1', 'rb')
     trained_models_pickle = pickle.load(pkl_file)
@@ -558,7 +593,7 @@ if __name__ == '__main__':
         if session_state.password == 'ioclnfr':
             pwd_placeholder.empty()
             title_placeholder.empty()
-            main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_models,log,input_distance_dict,API_key,financials_df)
+            main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_models,log,input_distance_dict,API_key,financials_df,financials_df_cost_heads)
         elif session_state.password == '':
             title_placeholder.title('Welcome to NFR Offerings Simulator')
                         
@@ -567,4 +602,4 @@ if __name__ == '__main__':
             st.error("the password you entered is incorrect")
     else:
                
-        main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_models,log,input_distance_dict,API_key,financials_df)
+        main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_models,log,input_distance_dict,API_key,financials_df,financials_df_cost_heads)
