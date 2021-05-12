@@ -519,7 +519,7 @@ if __name__ == '__main__':
         trained_models[offering]=load_model('./Files/'+offering.split(" ")[0])
  
     # df = load_data()
-    API_key = 'AIzaSyDA02-tlDUa0fH2-0V9Yo0gyyiVTLA21Zc'#enter Google Maps API key
+    API_key = 'xx'#enter Google Maps API key
     
     training_df['Offerings']=""
     for i in training_df.index:
