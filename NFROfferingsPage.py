@@ -130,7 +130,7 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
     st.write("Legend")
     col7,col8,col9,col10 = st.beta_columns([1,1,1,8])
     with col7:
-        st.markdown(f"<h6 style='text-align: center; color:white;background-color: #000032; height: 20px; width: 100px ; padding-right: 1px; '>Sweet Spot</h6>", unsafe_allow_html=True)
+        st.markdown(f"<h6 style='text-align: center; color:white;background-color: #000032; height: 20px; width: 100px ; '>Sweet Spot</h6>", unsafe_allow_html=True)
     
     with col8:
         st.markdown(f"<h6 style='text-align: center; color:white;background-color: white; height: 20px; width: 10px ;'> </h6>", unsafe_allow_html=True)
