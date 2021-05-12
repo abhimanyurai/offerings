@@ -3,7 +3,7 @@ pandas
 numpy
 seaborn
 matplotlib
-PIL
+Pillow
 pycaret
 streamlit
 json
@@ -13,4 +13,5 @@ googlemaps
 IPython
 plotly
 os
+Image
 
