@@ -6,7 +6,6 @@ matplotlib
 Pillow
 pycaret
 streamlit
-json
 logging
 pickle
 googlemaps
