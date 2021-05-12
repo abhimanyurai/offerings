@@ -11,6 +11,5 @@ pickle-mixin
 googlemaps
 IPython
 plotly
-os
-Image
+
 
