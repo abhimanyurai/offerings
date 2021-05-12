@@ -43,7 +43,7 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
         st.title('Welcome to NFR Offerings Simulator')
         st.subheader('Powered by Accenture')
     with colb:
-        img = Image.open("C:/Users/abhimanyu.rai/OneDrive - Accenture/New Docs/Random BD Work/IOCL/IOCL.png")
+        img = Image.open("./Files/IOCL.png")
    
         st.image(img, width=70)   
 
