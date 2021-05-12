@@ -15,7 +15,6 @@ from PIL import Image
 from pycaret.classification import *
 import streamlit as st
 import json
-import logging
 import pickle
 import googlemaps
 from IPython.display import HTML
@@ -490,7 +489,7 @@ def distance_calculator_custom(source, training_df,API_key,offerings):
     
 if __name__ == '__main__':
     
-    logging.basicConfig(level=logging.CRITICAL)
+    #logging.basicConfig(level=logging.CRITICAL)
     input_df = pd.read_csv("./Files/Test Data Pivoted.csv")
     training_df = pd.read_csv("./Files//Offering Data Pivoted.csv")
     financials_df = pd.read_csv("./Files/Financials_data.csv")
