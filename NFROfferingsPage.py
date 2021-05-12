@@ -15,6 +15,7 @@ from PIL import Image
 from pycaret.classification import *
 import streamlit as st
 import json
+import logging
 import pickle
 import googlemaps
 from IPython.display import HTML
@@ -127,12 +128,16 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
                 st.markdown(f"<h1 style='text-align: center; background-color: #000032; color: white;'>{value}</h1>", unsafe_allow_html=True)
     
     st.write("Legend")
-    col7,col8,col9 = st.beta_columns([1,1,8])
+    col7,col8,col9,col10 = st.beta_columns([1,1,1,8])
     with col7:
         st.markdown(f"<h6 style='text-align: center; color:white;background-color: #000032; height: 20px; width: 100px ; padding-right: 1px; '>Sweet Spot</h6>", unsafe_allow_html=True)
+    
     with col8:
-        st.markdown(f"<h6 style='text-align: center; color:white;background-color: #fb843b; height: 20px; width: 100px ;'>Hot Spot</h6>", unsafe_allow_html=True)
+        st.markdown(f"<h6 style='text-align: center; color:white;background-color: white; height: 20px; width: 5px ;'> </h6>", unsafe_allow_html=True)
     with col9:
+        st.markdown(f"<h6 style='text-align: center; color:white;background-color: #fb843b; height: 20px; width: 100px ;'>Hot Spot</h6>", unsafe_allow_html=True)
+    with col10:
+            
         st.write("")
             
     
@@ -489,7 +494,7 @@ def distance_calculator_custom(source, training_df,API_key,offerings):
     
 if __name__ == '__main__':
     
-    #logging.basicConfig(level=logging.CRITICAL)
+    logging.basicConfig(level=logging.CRITICAL)
     input_df = pd.read_csv("./Files/Test Data Pivoted.csv")
     training_df = pd.read_csv("./Files//Offering Data Pivoted.csv")
     financials_df = pd.read_csv("./Files/Financials_data.csv")
@@ -519,7 +524,7 @@ if __name__ == '__main__':
         trained_models[offering]=load_model('./Files/'+offering.split(" ")[0])
  
     # df = load_data()
-    API_key = 'xx'#enter Google Maps API key
+    API_key = 'AIzaSyDA02-tlDUa0fH2-0V9Yo0gyyiVTLA21Zc'#enter Google Maps API key
     
     training_df['Offerings']=""
     for i in training_df.index:
