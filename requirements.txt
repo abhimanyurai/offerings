@@ -7,7 +7,7 @@ Pillow
 pycaret
 streamlit
 logging
-pickle
+pickle-mixin
 googlemaps
 IPython
 plotly
