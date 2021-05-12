@@ -171,14 +171,16 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
     print(offer_financial)
     
     financials_df_sliced = financials_df[financials_df['Idea']==offer_financial][['Value','FY25','FY30','FY35','FY40']]
-    print(financials_df_sliced)
-    print(financials_df)
+    
     if financials_df_sliced.empty:
         st.write("Financials Data Unavailable")
     else:
         data_x = ['FY25','FY30','FY35','FY40']
         data_y1 = financials_df_sliced[financials_df_sliced['Value']=='Revenue'][data_x].iloc[0]
         data_y2 = financials_df_sliced[financials_df_sliced['Value']=='Profitability'][data_x].iloc[0]
+        data_y2_new=[]
+        for y in data_y2:
+            data_y2_new.append(float(y.split("%")[0])/100)
        
         # Create figure with secondary y-axis
         fig = make_subplots(specs=[[{"secondary_y": True}]])
@@ -190,7 +192,7 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
         )
         
         fig.add_trace(
-            go.Line(x=data_x, y=data_y2, name="Profitability Data"),
+            go.Line(x=data_x, y=data_y2_new, name="Profitability Data"),
             secondary_y=True,
         )
         
@@ -198,11 +200,13 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
 
         # Set x-axis title
         fig.update_xaxes(title_text="Year")
-        fig.update_layout(width=1000,height=400)
+
         
+        fig.update_layout(width=1000,height=400)
+
         # Set y-axes titles
         fig.update_yaxes(title_text="<b>Revenue (in Rs Thousand)</b>", secondary_y=False)
-        fig.update_yaxes(title_text="<b>Profitability (%)</b>", secondary_y=True)
+        fig.update_yaxes(title_text="<b>Profitability (%)</b>",secondary_y=True,tickformat= ',.0%')
  
         st.plotly_chart(fig,width=1000,height=400)
         
@@ -232,8 +236,8 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
                         capex = capex + ", "+cost_head
                 capex = "Capex Cost Heads- "+capex
                 
-                st.markdown(f"<h5 style='text-align: left; color:black'>{opex}</h5>", unsafe_allow_html=True)
-                st.markdown(f"<h5 style='text-align: left; color:black'>{capex}</h5>", unsafe_allow_html=True)
+                st.markdown(f"<h4 style='text-align: left; color:black'>{opex}</h4>", unsafe_allow_html=True)
+                st.markdown(f"<h4 style='text-align: left; color:black'>{capex}</h4>", unsafe_allow_html=True)
             
                          
     
