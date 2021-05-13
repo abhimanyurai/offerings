@@ -353,8 +353,8 @@ def Offerings_Input(input_df,training_df,input_df_cleaned_for_prediction,offerin
                 col,
                 #min_value=training_df[col].min(),
                 #max_value=training_df[col].max(),
-                min_value=0,
-                max_value=1,
+                min_value=0.0,
+                max_value=1.0,
                 value=float(training_df[col].mean()),
                 step= 0.0001
                 
@@ -394,8 +394,8 @@ def Offerings_Input(input_df,training_df,input_df_cleaned_for_prediction,offerin
                 col,
                 #min_value=training_df[col].min(),
                 #max_value=training_df[col].max(),
-                min_value=0,
-                max_value=1,
+                min_value=0.0,
+                max_value=1.0,
                 value=float(training_df[col].mean()),
                 step = 0.0001
                 
