@@ -333,7 +333,7 @@ def Offerings_Input(input_df,training_df,input_df_cleaned_for_prediction,offerin
                 "Area available for Idea Execution (sq ft)",
                 min_value=0,
                 max_value=40000,
-                value=1000,
+                value=5000,
                 step= 1
                 )
     
