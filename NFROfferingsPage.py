@@ -320,7 +320,7 @@ def Offerings_Input(input_df,training_df,input_df_cleaned_for_prediction,offerin
     add_element(pred,input_df_cleaned_for_prediction.columns[0],at2);
  
     st.sidebar.markdown('---')
-    st.sidebar.markdown(f"<h2 style='text-align: left; color: black;'>Ease of Implementation</h2>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"<h1 style='text-align: left; color: black;'>Ease of Implementation</h1>", unsafe_allow_html=True)
     
     dot1 = st.sidebar.slider(
                 "Dealer's Ability to Execute",
@@ -340,6 +340,8 @@ def Offerings_Input(input_df,training_df,input_df_cleaned_for_prediction,offerin
     
     
     st.sidebar.markdown('---')
+    st.sidebar.markdown(f"<h1 style='text-align: left; color: black;'>Idea Brightness</h1>", unsafe_allow_html=True)
+    
     st.sidebar.markdown(f"<h2 style='text-align: left; color: black;'>Retail Intensity</h2>", unsafe_allow_html=True)
   
     val = 0
