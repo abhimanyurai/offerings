@@ -85,7 +85,8 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
     #scores['attribute'] = scores['attribute'].apply(lambda x: x.split("_")[1])
             
     
-    st.header('Top Predicted Offerings')
+    #st.header('Top Predicted Offerings')
+    st.markdown(f"<h1 style='text-align: left; color: black;'>Top Predicted Offerings</h1>", unsafe_allow_html=True)
     col1,col2,col3,col4,col5 = st.beta_columns([1,0.1,1,0.1,1])
     with col1:
         val = round(scores.iloc[0][1]*100,1)
@@ -140,7 +141,8 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
     
     #NEARBY STORE SELECTORS
     st.markdown('---')
-    st.header('Offerings at nearby stores')
+    st.markdown(f"<h1 style='text-align: left; color: black;'>Offerings at nearby stores</h1>", unsafe_allow_html=True)
+    #st.header('Offerings at nearby stores')
     df_to_print = pd.DataFrame()
     if coordinates==-1:
         source_add = st.text_input('Enter Store Address')
@@ -160,7 +162,8 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
         
     #FINANCIALS DISPLAY
     st.markdown('---')
-    st.header('RO Financials')
+    st.markdown(f"<h1 style='text-align: left; color: black;'>RO Financials</h1>", unsafe_allow_html=True)
+    #st.header('RO Financials')
     
     fin_list = list(financials_df['Idea'].drop_duplicates())
     print(fin_list)
@@ -246,7 +249,8 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
     
     #MACHINE LEARNING MODELS    
     st.markdown('---')
-    st.header('Machine Learning Model Selection')
+    #st.header('Machine Learning Model Selection')
+    st.markdown(f"<h1 style='text-align: left; color: black;'>Machine Learning Model Selection</h1>", unsafe_allow_html=True)
     at3 = st.selectbox('Type of Offering', offerings)
     st.write("Selected Machine Learning Model based on Accuracy - "+log[at3].iloc[0][0])
     st.write(log[at3])
