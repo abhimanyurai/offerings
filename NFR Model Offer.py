@@ -24,10 +24,10 @@ offering_dataset.drop(['6 City of Interview','8 Company', '10 Outlet Name', '43 
 
 offering_dataset.columns
 
-offerings = ['Aggregated vehicle related requirements', 
+offerings = ['Aggregated vehicle related requirements', 'Virtual C-store',
         'Truck Stops (Auto Repair / Rest)',
-       'QSR / Restaurant', 'Auto Repair', 'Virtual C-store',
-       'One stop for daily farmer needs','Forecourt Advertising','Pharmacy']
+       'QSR / Restaurant / Dhaba',
+       'One stop shop for daily farmer needs','Forecourt Advertising','Pharmacy']
 
 trained_model = {}
 trained_model_logs = {}
