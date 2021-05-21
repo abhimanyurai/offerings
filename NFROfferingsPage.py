@@ -90,6 +90,7 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
     col1,col2,col3,col4,col5 = st.beta_columns([1,0.1,1,0.1,1])
     with col1:
         val = round(scores.iloc[0][1]*100,1)
+        
         if val>=20:
             
             text = scores.iloc[0][0]
@@ -272,22 +273,23 @@ def Offerings_Input(input_df,training_df,input_df_cleaned_for_prediction,offerin
     
     questions = {
         'Select Store': combined_list,
-        'Type-of-Outlet': ['Urban', 'Semi-urban', 'Rural', 'Highway'], 
+        'Type-of-Outlet': ['Urban', 'Rural', 'Highway'], 
     }
     
     pred = {}
-    retail_intensity = ['44 Approx. area (sq. feet)','Grocery - Concentration of Grocery With respect to Population',
-       'Restaurant - Concentration of Restaurant With respect to Population',
+    retail_intensity = ['44 Approx. area (sq. feet)','Grocery / Hypermart - Concentration of Grocery / Hypermart With respect to Population',
        'Hospital - Concentration of Hospital With respect to Population',
-       'Police Station - Concentration of Police Station  With respect to Population',
+       'Restaurant - Concentration of Restaurant With respect to Population',
+       
        'Higher Education Institutes - Concentration of higher education institutes  With respect to Population',
-       'Hypermarket Brand High-End - Concentration of hypermarket brand high-end  With respect to Population',
+       
        'Apparel Brands Budget - Concentration of apparel brands budget  With respect to Population',
        'Apparel Brands Mid Range - Concentration of apparel brands mid range  With respect to Population',
        'Apparel Brands - Luxury - High Range - Concentration of apparel brands - luxury - high range With respect to Population',
        'Electronics Store - Concentration of Electronics Store  With respect to Population',
        'Gym - Concentration of Gym  With respect to Population',
        'Gym Mid-Range - Concentration of gym mid-range  With respect to Population',
+       'Police Station - Concentration of Police Station  With respect to Population',
        'Pet Store - Concentration of Pet Store  With respect to Population',
        'Car Rental - Concentration of Car Rental  With respect to Population',
        'Clinics - Concentration of Clinics  With respect to Population',
@@ -323,28 +325,9 @@ def Offerings_Input(input_df,training_df,input_df_cleaned_for_prediction,offerin
     
     add_element(pred,input_df_cleaned_for_prediction.columns[0],at2);
  
+        
     st.sidebar.markdown('---')
-    st.sidebar.markdown(f"<h1 style='text-align: left; color: black;'>Ease of Implementation</h1>", unsafe_allow_html=True)
-    
-    dot1 = st.sidebar.slider(
-                "Dealer's Ability to Execute",
-                min_value=0.0,
-                max_value=1.0,
-                value=0.5,
-                step= 0.0001
-                )
-    dot2 = st.sidebar.slider(
-                "Area available for Idea Execution (sq ft)",
-                min_value=0,
-                max_value=40000,
-                value=5000,
-                step= 1
-                )
-    
-    
-    
-    st.sidebar.markdown('---')
-    st.sidebar.markdown(f"<h1 style='text-align: left; color: black;'>Idea Brightness</h1>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"<h1 style='text-align: left; color: black;'>Idea Potential</h1>", unsafe_allow_html=True)
     
     st.sidebar.markdown(f"<h2 style='text-align: left; color: black;'>Retail Intensity</h2>", unsafe_allow_html=True)
   
@@ -354,14 +337,14 @@ def Offerings_Input(input_df,training_df,input_df_cleaned_for_prediction,offerin
         
         for col in training_df[retail_intensity].columns:
             
-            if training_df[col].max()<1:
+            if training_df[col].max()<20:
                 val = st.sidebar.slider(
                 col,
                 #min_value=training_df[col].min(),
                 #max_value=training_df[col].max(),
                 min_value=float(0.0),
-                max_value=float(1.0),
-                value=float(training_df[col].mean()),
+                max_value=float(training_df[training_df['7 Type of Outlet']==at2][col].max()),
+                value=float(training_df[training_df['7 Type of Outlet']==at2][col].mean()),
                 step= 0.0001
                 
             )
@@ -369,8 +352,8 @@ def Offerings_Input(input_df,training_df,input_df_cleaned_for_prediction,offerin
             else:
                 val = st.sidebar.slider(
                 col,
-                min_value=int(round(training_df[col].min(),0)),
-                max_value=int(round(training_df[col].max(),0))+1,
+                min_value=int(round(training_df[training_df['7 Type of Outlet']==at2][col].min(),0)),
+                max_value=int(round(training_df[training_df['7 Type of Outlet']==at2][col].max(),0))+1,
                 
                 value=int(round(training_df[col].mean(),0)),
                 step = 1
@@ -395,13 +378,13 @@ def Offerings_Input(input_df,training_df,input_df_cleaned_for_prediction,offerin
         
         for col in training_df[demographic_profile].columns:
             
-            if training_df[col].max()<1:
+            if training_df[col].max()<20:
                 val = st.sidebar.slider(
                 col,
                 #min_value=training_df[col].min(),
                 #max_value=training_df[col].max(),
                 min_value=0.0,
-                max_value=1.0,
+                max_value=float(training_df[col].max()),
                 value=float(training_df[col].mean()),
                 step = 0.0001
                 
@@ -427,7 +410,26 @@ def Offerings_Input(input_df,training_df,input_df_cleaned_for_prediction,offerin
             val = input_df[col].iloc[list_index]
 
             add_element(pred,col,val) 
-         
+
+    st.sidebar.markdown('---')
+    st.sidebar.markdown(f"<h1 style='text-align: left; color: black;'>Ease of Implementation</h1>", unsafe_allow_html=True)
+    
+    dot1 = st.sidebar.slider(
+                "Dealer's Ability to Execute",
+                min_value=0.0,
+                max_value=1.0,
+                value=0.5,
+                step= 0.0001
+                )
+    dot2 = st.sidebar.slider(
+                "Area available for Idea Execution (sq ft)",
+                min_value=0,
+                max_value=40000,
+                value=5000,
+                step= 1
+                )
+    
+    
     print (pred)
     return pred,coordinates
 
@@ -482,7 +484,7 @@ def distance_calculator(input_df, training_df,API_key,offerings):
 
         distance_df.sort_values(by="Distance (in KM)", ascending=True, inplace = True)
         
-        df_to_print = distance_df[['6 City of Interview','8 Company','10 Outlet Name','Address','Distance (in KM)','Offerings']].head().copy()
+        df_to_print = distance_df[distance_df['8 Company']!='IOCL '][['6 City of Interview','8 Company','10 Outlet Name','Address','Distance (in KM)','Offerings']].head().copy()
         
         
         
@@ -523,10 +525,10 @@ def distance_calculator_custom(source, training_df,API_key,offerings):
 
     distance_df.sort_values(by="Distance (in KM)", ascending=True, inplace = True)
     
-    df_to_print = distance_df[['6 City of Interview','8 Company','10 Outlet Name','Address','Distance (in KM)','Offerings']].head().copy()
+    df_to_print = distance_df[distance_df['8 Company']!='IOCL '][['6 City of Interview','8 Company','10 Outlet Name','Address','Distance (in KM)','Offerings']].head().copy()
     
     
-    
+       
     
     df_to_print.columns = ['City', 'Company','Outlet Name','Address','Distance in KM','Offerings']
     df_to_print.reset_index(inplace = True)
@@ -555,10 +557,10 @@ if __name__ == '__main__':
   
      
     fields_to_remove = ['6 City of Interview','8 Company','10 Outlet Name','43 - NFR Present or Not', '44 Area bracket (sq. feet)','Monthly Revenue (FR)','Rev per Sq. Ft (FR)','Margin per Sq. Ft (FR)','Monthly Revenue (NFR)','NFR revenues as % of Total revenues','Rev per Sq. ft (NFR)','Margin per Sq. Ft (NFR)', 'Monthly NFR Profit','Cost as % of Revenue','Demographics - Male Population','Demographics - Female Population','Demographics - Total Literate Population','Latitude','Longitude', 'Address']
-    offerings = ['Aggregated vehicle related requirements', 
+    offerings = ['Aggregated vehicle related requirements', 'Virtual C-store',
         'Truck Stops (Auto Repair / Rest)',
-       'QSR / Restaurant', 'Auto Repair', 'Virtual C-store',
-       'One stop for daily farmer needs','Forecourt Advertising','Pharmacy']
+       'QSR / Restaurant / Dhaba',
+       'One stop shop for daily farmer needs','Forecourt Advertising','Pharmacy']
 
     
     input_df_cleaned_for_prediction = input_df.copy()
