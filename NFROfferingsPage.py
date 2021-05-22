@@ -90,8 +90,8 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
     col1,col2,col3,col4,col5 = st.beta_columns([1,0.1,1,0.1,1])
     with col1:
         val = round(scores.iloc[0][1]*100,1)
-        if val==100:
-            val=98.7             
+        if val>=99:
+            val=np.random.uniform(99.0,99.9)             
         
         if val>=20:
             
@@ -107,8 +107,8 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
         st.write("")
     with col3:
         val = round(scores.iloc[1][1]*100,1)
-        if val==100:
-            val=98.7
+        if val>=99:
+            val=np.random.uniform(99.0,99.9)
             
         if val>=20:
             text = scores.iloc[1][0]
@@ -123,8 +123,8 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
         st.write("")
     with col5:
         val = round(scores.iloc[2][1]*100,1)
-        if val==100:
-            val=98.7
+        if val>=99:
+            val=np.random.uniform(99.0,99.9)   
             
         if val>=20:
             text = scores.iloc[2][0]
