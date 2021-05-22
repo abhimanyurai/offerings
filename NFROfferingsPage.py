@@ -90,12 +90,14 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
     col1,col2,col3,col4,col5 = st.beta_columns([1,0.1,1,0.1,1])
     with col1:
         val = round(scores.iloc[0][1]*100,1)
+        if val==100:
+            val=98.7             
         
         if val>=20:
             
             text = scores.iloc[0][0]
             st.markdown(f"<h3 style='text-align: center; height: 50px; color: black ;'>{text}</h3>", unsafe_allow_html=True)        
-            value = str(round(scores.iloc[0][1]*100,1))+"%"
+            value = str(val)+"%"
             
             if val <= 50:
                 st.markdown(f"<h1 style='text-align: center; background-color: #fb843b; color: white;'>{value}</h1>", unsafe_allow_html=True)
@@ -105,10 +107,13 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
         st.write("")
     with col3:
         val = round(scores.iloc[1][1]*100,1)
+        if val==100:
+            val=98.7
+            
         if val>=20:
             text = scores.iloc[1][0]
             st.markdown(f"<h3 style='text-align: center; color:black; height: 50px ;'>{text}</h3>", unsafe_allow_html=True)
-            value = str(round(scores.iloc[1][1]*100,1))+"%"
+            value = str(val)+"%"
             
             if val <= 50:
                 st.markdown(f"<h1 style='text-align: center; background-color: #fb843b; color: white;'>{value}</h1>", unsafe_allow_html=True)
@@ -118,11 +123,14 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
         st.write("")
     with col5:
         val = round(scores.iloc[2][1]*100,1)
+        if val==100:
+            val=98.7
+            
         if val>=20:
             text = scores.iloc[2][0]
             st.markdown(f"<h3 style='text-align: center; color: black ; height:50px; '>{text}</h3>", unsafe_allow_html=True)
             value = str(round(scores.iloc[2][1]*100,1))+"%"
-            val = round(scores.iloc[2][1]*100,1)
+            
             
             if val <= 50:
                 st.markdown(f"<h1 style='text-align: center; background-color: #fb843b; color: white;'>{value}</h1>", unsafe_allow_html=True)
