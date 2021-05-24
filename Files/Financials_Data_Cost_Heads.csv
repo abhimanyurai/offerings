@@ -14,9 +14,9 @@ Truck Stops (Auto Repair / Rest),Consumables (for Restaurant),"Visibility expens
 Truck Stops (Auto Repair / Rest),COGS (for Resturant),"IT (Computer, accessories, accounting software)"
 Truck Stops (Auto Repair / Rest),Elec. Expense (Grid / DG),Furniture (for Restaurant / QSR)
 Truck Stops (Auto Repair / Rest),Working capital cost,
-Virtual C-store,Salary for delivery boys,App development / upgrades
-Virtual C-store,Salary for warehouse staff,Warehouse construction
-Virtual C-store,Consumables (for warehouse),"Delivery fleet / vehicles (Bikes, scooters, etc.)"
-Virtual C-store,Elec. Expense (Grid / DG),
-Virtual C-store,IT Maintenance charges,
-Virtual C-store,Working capital cost,
+Phygital Grocery,Salary for delivery boys,App development / upgrades
+Phygital Grocery,Salary for warehouse staff,Warehouse construction
+Phygital Grocery,Consumables (for warehouse),"Delivery fleet / vehicles (Bikes, scooters, etc.)"
+Phygital Grocery,Elec. Expense (Grid / DG),
+Phygital Grocery,IT Maintenance charges,
+Phygital Grocery,Working capital cost,
