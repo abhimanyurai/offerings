@@ -96,6 +96,8 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
         if val>=20:
             
             text = scores.iloc[0][0]
+            if text == "Virtual C-store":
+                text = "Phygital Grocery"
             st.markdown(f"<h3 style='text-align: center; height: 50px; color: black ;'>{text}</h3>", unsafe_allow_html=True)        
             value = str(val)+"%"
             
@@ -112,6 +114,8 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
             
         if val>=20:
             text = scores.iloc[1][0]
+            if text == "Virtual C-store":
+                text = "Phygital Grocery"
             st.markdown(f"<h3 style='text-align: center; color:black; height: 50px ;'>{text}</h3>", unsafe_allow_html=True)
             value = str(val)+"%"
             
@@ -128,6 +132,8 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
             
         if val>=20:
             text = scores.iloc[2][0]
+            if text == "Virtual C-store":
+                text = "Phygital Grocery"
             st.markdown(f"<h3 style='text-align: center; color: black ; height:50px; '>{text}</h3>", unsafe_allow_html=True)
             value = str(round(scores.iloc[2][1]*100,1))+"%"
             
