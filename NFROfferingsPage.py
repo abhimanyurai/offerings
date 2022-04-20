@@ -39,7 +39,7 @@ def add_element(dict, key, value):
 def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_models,log,input_distance_dict,API_key,financials_df,financials_df_cost_heads):
     
     st.sidebar.empty()
-    cola,colb = st.beta_columns([5,1])
+    cola,colb = st.columns([5,1])
     with cola:
         st.title('Welcome to NFR Offerings Simulator')
         st.subheader('Powered by Accenture')
@@ -87,7 +87,7 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
     
     #st.header('Top Predicted Offerings')
     st.markdown(f"<h1 style='text-align: left; color: black;'>Top Predicted Offerings</h1>", unsafe_allow_html=True)
-    col1,col2,col3,col4,col5 = st.beta_columns([1,0.1,1,0.1,1])
+    col1,col2,col3,col4,col5 = st.columns([1,0.1,1,0.1,1])
     with col1:
         val = round(scores.iloc[0][1]*100,1)
         if val>=99:
@@ -144,7 +144,7 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
                 st.markdown(f"<h1 style='text-align: center; background-color: #000032; color: white;'>{value}</h1>", unsafe_allow_html=True)
     
     st.write("Legend")
-    col7,col8,col9 = st.beta_columns([1,1,8])
+    col7,col8,col9 = st.columns([1,1,8])
     with col7:
         st.markdown(f"<h6 style='text-align: center; color:white;background-color: #000032; height: 20px; width: 90px ; padding-right: 1px; '>Sweet Spot</h6>", unsafe_allow_html=True)
     with col8:
@@ -232,7 +232,7 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
         st.plotly_chart(fig,width=1000,height=400)
         
         with st.beta_expander("See Details"):
-            col1,col2 = st.beta_columns([2,1])
+            col1,col2 = st.columns([2,1])
             with col1:
                 st.write(HTML(financials_df[financials_df['Idea']==offer_financial].drop('Idea',axis=1).to_html(index=False,justify='center')))
             with col2:
