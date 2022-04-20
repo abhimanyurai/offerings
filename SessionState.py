@@ -20,11 +20,12 @@ result:
 
 """
 try:
-    import streamlit.ReportThread as ReportThread
+    from streamlit.script_run_context import get_script_run_ctx
+   
     from streamlit.server.Server import Server
 except Exception:
     # Streamlit >= 0.65.0
-    import streamlit.report_thread as ReportThread
+    from streamlit.script_run_context import get_script_run_ctx
     from streamlit.server.server import Server
 
 
@@ -79,7 +80,7 @@ def get(**kwargs):
     """
     # Hack to get the session object from Streamlit.
 
-    ctx = ReportThread.get_report_ctx()
+    ctx = get_script_run_ctx()
 
     this_session = None
 
