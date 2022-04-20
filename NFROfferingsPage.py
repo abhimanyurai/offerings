@@ -231,7 +231,7 @@ def main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_
  
         st.plotly_chart(fig,width=1000,height=400)
         
-        with st.beta_expander("See Details"):
+        with st.expander("See Details"):
             col1,col2 = st.columns([2,1])
             with col1:
                 st.write(HTML(financials_df[financials_df['Idea']==offer_financial].drop('Idea',axis=1).to_html(index=False,justify='center')))
