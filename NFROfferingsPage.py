@@ -21,7 +21,7 @@ import googlemaps
 from IPython.display import HTML
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from SessionState import get
+
 
 
 
@@ -610,25 +610,7 @@ if __name__ == '__main__':
 
     
     
-    session_state = get(password='')
     title_placeholder = st.sidebar.empty()
     
-    
-    if session_state.password != 'ioclnfr':
-        title_placeholder.title('Welcome to NFR Offerings Simulator')
-        pwd_placeholder = st.sidebar.empty()
-        pwd = pwd_placeholder.text_input("Password:", value="", type="password")
-        session_state.password = pwd
-        if session_state.password == 'ioclnfr':
-            pwd_placeholder.empty()
-            title_placeholder.empty()
-            main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_models,log,input_distance_dict,API_key,financials_df,financials_df_cost_heads)
-        elif session_state.password == '':
-            title_placeholder.title('Welcome to NFR Offerings Simulator')
-                        
-        else:
-            title_placeholder.title('Welcome to NFR Offerings Simulator')
-            st.error("the password you entered is incorrect")
-    else:
-               
-        main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_models,log,input_distance_dict,API_key,financials_df,financials_df_cost_heads)
+              
+    main(input_df,training_df,input_df_cleaned_for_prediction,offerings,trained_models,log,input_distance_dict,API_key,financials_df,financials_df_cost_heads)
